@@ -2,6 +2,9 @@ const express = require("express");
 const hiscores = require("osrs-json-hiscores");
 const app = express();
 const Discord = require("discord.js");
+require("dotenv").config();
+
+const token = process.env.TOKEN;
 
 const client = new Discord.Client({
   intents: [
@@ -10,9 +13,6 @@ const client = new Discord.Client({
     Discord.GatewayIntentBits.MessageContent,
   ],
 });
-
-const token =
-  "MTA4OTQ5NTExNDEzNDU5NzY5NA.G0OQYs.uXNLfA6BLRlwzIkRTvEdWNA8Mwla8DfXELMqi0";
 
 const igns = [
   "Jeremy Wells",
