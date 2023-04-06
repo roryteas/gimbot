@@ -1,5 +1,5 @@
 const express = require("express");
-const hiscores = require("osrs-json-hiscores");
+
 const app = express();
 const Discord = require("discord.js");
 require("dotenv").config();
