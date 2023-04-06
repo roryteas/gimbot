@@ -6,6 +6,7 @@ require("dotenv").config();
 
 // port env or 3000
 const port = process.env.PORT || 3000;
+const token = process.env.TOKEN;
 
 const client = new Discord.Client({
   intents: [
