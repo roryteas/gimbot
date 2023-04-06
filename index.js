@@ -22,14 +22,18 @@ client.on("ready", () => {
 
 client.on("messageCreate", async (message) => {
   console.log(message.content);
-  try {
-    if (command === "help") {
-      message.channel.send(
-        "Commands: \n !bosses <boss> \n !stats <skill> \n !stats overall"
-      );
+  if (message.content.startsWith(prefix)) {
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    try {
+      if (command === "help") {
+        message.channel.send(
+          "Commands: \n !bosses <boss> \n !stats <skill> \n !stats overall"
+        );
+      }
+    } catch (err) {
+      console.log(err);
     }
-  } catch (err) {
-    console.log(err);
   }
 });
 
