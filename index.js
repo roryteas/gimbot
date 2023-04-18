@@ -7,6 +7,7 @@ const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 require("dotenv").config();
 const { getTeamBossKC } = require("./functions/hiscores/bossesFetch");
+const { getTeamSkill } = require("./functions/hiscores/skillsFetch");
 
 // port env or 3000
 const port = process.env.PORT || 3000;
@@ -56,55 +57,10 @@ const igns = [
   "SuzannePaul",
 ];
 
-const getSkills = async (ign) => {
-  const player = await hiscores.getStats(ign);
-  const stats = player.main.skills;
-  return stats;
-};
-
-const getAllSkills = async (ign) => {
-  const skills = await getSkills(ign);
-  const allSkills = Object.keys(skills).map((skill) => {
-    return {
-      skill: skill,
-      level: skills[skill].level,
-      xp: skills[skill].xp,
-    };
-  });
-  return allSkills;
-};
-
-const getSkill = async (ign, skill) => {
-  const skills = await getSkills(ign);
-  return skills[skill].level;
-};
-
 const getTotal = async (ign) => {
   const player = await hiscores.getStats(ign);
   const total = player.main.overall;
   return [total.level];
-};
-
-const getTeamSkill = async (skill) => {
-  const teamskill = {
-    "Jeremy Wells": 0,
-    "Jason Faafoi": 0,
-    HilaryBarry: 0,
-    "Suzy Cato": 0,
-    SuzannePaul: 0,
-    Total: 0,
-  };
-
-  for (const ign of igns) {
-    console.log(skill);
-    const level = await getSkill(ign, skill);
-    if (skill !== -1) {
-      teamskill[ign] = level;
-      teamskill.Total += level;
-    }
-  }
-
-  return teamskill;
 };
 
 client.on("ready", () => {
@@ -209,3 +165,7 @@ client.login(token);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+module.exports = {
+  igns,
+};

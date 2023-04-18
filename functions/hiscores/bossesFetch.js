@@ -1,10 +1,12 @@
-export const getBosses = async (ign) => {
+const hiscores = require("osrs-json-hiscores");
+
+const getBosses = async (ign) => {
   const player = await hiscores.getStats(ign);
   const bosses = player.main.bosses;
   return bosses;
 };
 
-export const getBoss = async (ign, boss) => {
+const getBoss = async (ign, boss) => {
   const bosses = await getBosses(ign);
   return bosses[boss].score;
 };
@@ -31,4 +33,6 @@ const getTeamBossKC = async (boss) => {
   return teamkc;
 };
 
-export default getTeamBossKC;
+module.exports = {
+  getTeamBossKC,
+};
