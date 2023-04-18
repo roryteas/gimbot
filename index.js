@@ -117,68 +117,72 @@ client.on("ready", () => {
 client.on("messageCreate", async (message) => {
   console.log(message.content);
   if (message.content.startsWith(prefix)) {
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-
-    if (command === "bosses") {
-      message.channel.send("Fetching boss kc... won't be a sec king 👑");
-      const boss = args[0];
-      console.log(boss);
-      const bosses = await getTeamBossKC(boss);
-      message.channel.send(`Boss: ${boss}`);
-      var messagevar = "";
-      igns.forEach((ign) => {
-        messagevar += `${ign}: ${bosses[ign]} \n`;
-      });
-      message.channel.send(messagevar);
-      message.channel.send(`Total: ${bosses.Total}`);
-    }
-
-    if (command === "stats") {
-      message.channel.send("Fetching stats... won't be a sec king 👑");
-      const skill = args[0];
-      const stats = await getTeamSkill(skill);
-      message.channel.send(`Skill: ${skill}`);
-      igns.forEach((ign) => {
-        message.channel.send(`${ign}: ${stats[ign]}`);
-      });
-      message.channel.send(`Total: ${stats.Total}`);
-    }
-
-    if (command == "catan") {
-      message.channel.send("Catan is a game for nerds?");
-    }
-
-    if (command === "26Julio") {
-      message.channel.send(
-        "El 26 de Julio se celebra el dia de la independencia de Chile"
-      );
-    }
-
-    if (command === "king") {
-      //get the user with the highest total level
-      var highestTotal = 0;
-      var highestTotalIGN = "";
-      const stats = await getTeamSkill("overall");
-      igns.forEach((ign) => {
-        if (stats[ign] > highestTotal) {
-          highestTotal = stats[ign];
-          highestTotalIGN = ign;
-        }
-      });
-      message.channel.send(
-        `King is ${highestTotalIGN} with ${highestTotal} total level`
-      );
-    }
-
     try {
-      if (command === "help") {
+      const args = message.content.slice(prefix.length).trim().split(/ +/);
+      const command = args.shift().toLowerCase();
+
+      if (command === "bosses") {
+        message.channel.send("Fetching boss kc... won't be a sec king 👑");
+        const boss = args[0];
+        console.log(boss);
+        const bosses = await getTeamBossKC(boss);
+        message.channel.send(`Boss: ${boss}`);
+        var messagevar = "";
+        igns.forEach((ign) => {
+          messagevar += `${ign}: ${bosses[ign]} \n`;
+        });
+        message.channel.send(messagevar);
+        message.channel.send(`Total: ${bosses.Total}`);
+      }
+
+      if (command === "stats") {
+        message.channel.send("Fetching stats... won't be a sec king 👑");
+        const skill = args[0];
+        const stats = await getTeamSkill(skill);
+        message.channel.send(`Skill: ${skill}`);
+        igns.forEach((ign) => {
+          message.channel.send(`${ign}: ${stats[ign]}`);
+        });
+        message.channel.send(`Total: ${stats.Total}`);
+      }
+
+      if (command == "catan") {
+        message.channel.send("Catan is a game for nerds?");
+      }
+
+      if (command === "26Julio") {
         message.channel.send(
-          "Commands: \n !bosses <boss> \n !stats <skill> \n !stats overall"
+          "El 26 de Julio se celebra el dia de la independencia de Chile"
         );
       }
+
+      if (command === "king") {
+        //get the user with the highest total level
+        var highestTotal = 0;
+        var highestTotalIGN = "";
+        const stats = await getTeamSkill("overall");
+        igns.forEach((ign) => {
+          if (stats[ign] > highestTotal) {
+            highestTotal = stats[ign];
+            highestTotalIGN = ign;
+          }
+        });
+        message.channel.send(
+          `King is ${highestTotalIGN} with ${highestTotal} total level`
+        );
+      }
+
+      try {
+        if (command === "help") {
+          message.channel.send(
+            "Commands: \n !bosses <boss> \n !stats <skill> \n !stats overall"
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
-      console.log(err);
+      message.channel.send(" Something went wrong, unluggy bol. 🍆💦😳");
     }
   }
 });
