@@ -1,5 +1,13 @@
 const hiscores = require("osrs-json-hiscores");
 
+const igns = [
+  "Jeremy Wells",
+  "Jason Faafoi",
+  "HilaryBarry",
+  "Suzy Cato",
+  "SuzannePaul",
+];
+
 const getBosses = async (ign) => {
   const player = await hiscores.getStats(ign);
   const bosses = player.main.bosses;
