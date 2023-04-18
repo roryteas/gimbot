@@ -123,6 +123,7 @@ client.on("messageCreate", async (message) => {
     if (command === "bosses") {
       message.channel.send("Fetching boss kc... won't be a sec king 👑");
       const boss = args[0];
+      console.log(boss);
       const bosses = await getTeamBossKC(boss);
       message.channel.send(`Boss: ${boss}`);
       var messagevar = "";
